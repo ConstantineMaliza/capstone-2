@@ -1,21 +1,24 @@
 
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+import '@babel/polyfill';
+import express, { json, urlencoded } from 'express';
+import connectDB from './config/database';
+import dotenv from 'dotenv';
+import passport from 'passport'; 
+import routes from './routes';
+import {jwtStrategy} from './config/passport';
 
-mongoose.connect('mongodb://localhost:27017/conFusion');
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-  console.log("we are connected!");
-});
+connectDB()
 
-const PORT = process.env.PORT || 3000;
+dotenv.config();
+const PORT = process.env.PORT;
 
 const app = express();
-app.use(bodyParser.json());
+app.use(json());
+app.use(urlencoded({ extended: false }));
+app.use(routes);
+app.use(passport.initialize());
+passport.use(jwtStrategy);
 
 
 app.get('/', (req, res) => {
@@ -28,3 +31,4 @@ app.listen(PORT, () => {
     console.log(`App is currently on port ${PORT}`);
 });
 
+export default app;
