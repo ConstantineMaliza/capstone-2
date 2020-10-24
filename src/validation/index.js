@@ -1,4 +1,6 @@
+
 import * as userValidate from './user';
+import * as blogValidate from './blog';
 
 
 function validate(schema, value) {
@@ -10,4 +12,5 @@ function validate(schema, value) {
 export {
   validate,
   userValidate,
+  blogValidate,
 };
