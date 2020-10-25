@@ -1,13 +1,13 @@
-import { config } from 'dotenv';
+import config from '../../config/config';
 import { connect } from 'mongoose';
 
-config();
 
+const MONGO_URI = config.database.mongourl;
 const connectDB = async () => {
   try {
-    const { MONGO_URI, MONGO_URI_TEST,  NODE_ENV } = process.env;
+   
     const conn = await connect(
-      NODE_ENV === 'test' ? MONGO_URI_TEST : MONGO_URI,
+     MONGO_URI,
       {
         useNewUrlParser: true,
         useCreateIndex: true,
@@ -16,7 +16,7 @@ const connectDB = async () => {
     );
 
     console.log(
-      `Database Connected: ${conn.connection.host} in ${NODE_ENV} mode`
+      `Database Connected`
     );
   } catch (err) {
     console.log(`Error: ${err.message}`);
