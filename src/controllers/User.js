@@ -34,7 +34,7 @@ export const login = asyncHandler(async(req,res)=>{
   if(errors)
     return Response.error(res, 400, `Please provide ${errors[0].context.key}`,errors[0]);
 
-  const {email, password,role} = req.body;
+  const {email, password} = req.body;
   const user = await UserModel.findOne({email});
   if(!user) return Response.error(res, 404, 'wrong Credentials' );
   if(!(await decryptPassword (password, user.password)))
@@ -49,7 +49,8 @@ export const profile = asyncHandler(async (req, res) => {
   const error = validate(userValidate.UpdateSchema, req.body);
   if (error) return Response.error(res, 400, error.details[0].message, error);
 
-  const data = { ...req.body };
+  const { image, imageId } = req;
+  const data = { ...req.body, image, imageId };
   const hash = await encryptPassword(data.password);
   const user = await UserModel.findOneAndUpdate(
     { _id: req.params.id },

@@ -12,7 +12,6 @@ export const auth = asyncHandler(async(req, res, next) => {
 
 export const isAdmin = asyncHandler(async (req, res, next) => {
     const { user } = req;
-    console.log(user);
     if (user.role !== 'Admin')
       return next({ message: 'Forbidden resources!', statusCode: 403 });
     return next();
