@@ -7,7 +7,7 @@
     "dev": "nodemon --exec babel-node src/index",
     "build": "babel ./src --out-dir build",
     "start": "npm run build && node build/index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage --testTimeout=10000 --detectOpenHandles --forceExit"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +16,15 @@
     "@babel/core": "^7.12.0",
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.12.0",
-    "nodemon": "^2.0.5"
+    "jest": "^26.6.1",
+    "nodemon": "^2.0.5",
+    "supertest": "^5.0.0"
+  },
+   "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
