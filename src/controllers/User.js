@@ -49,7 +49,7 @@ export const login = asyncHandler(async(req,res)=>{
     return Response.error(res, 401, 'wrong password');
 
   const token = signToken(user);
-  return Response.success(res, 200,token, 'Successfully Login in!');
+  return Response.success(res, 200,user, token, 'Successfully Login in!');
 });
 
 
