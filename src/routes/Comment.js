@@ -5,7 +5,7 @@ import * as blog from '../controllers/Blog';
 const router = Router();
 
 router.route('/:blogId').post(auth, blog.addComment);
-router.route('/:blogId/:commentId').delete(auth,isAdmin, blog.removeComment);
+router.route('/:blogId/:commentId').delete(auth, blog.removeComment);
 
 
 export default router;

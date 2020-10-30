@@ -5,7 +5,7 @@ import {auth,isAdmin } from '../middlewares/auth';
 const router = Router ();
 
 router.route('/')
-    .get(auth,isAdmin, query.getAll)
+    .get(auth, query.getAll)
     .post(query.create);
 
 export default router;
