@@ -31,7 +31,7 @@ export const signup = asyncHandler(async (req, res) => {
   if (!user) return Response.error(res, 500, 'User not created!');
 
 
-  return Response.success(res, 201, signToken(user));
+  return Response.success(res, 201, signToken(user),user);
   
   
 });
