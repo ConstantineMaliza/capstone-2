@@ -1,3 +1,7 @@
-/node_modules
-/tmp
-/src/coverage
+node_modules
+.env
+*.log
+tmp/
+.nyc_output
+coverage
+build/
