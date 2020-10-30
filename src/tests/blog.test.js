@@ -46,26 +46,39 @@ describe('blog route', () => {
     });
 
     describe('POST', () => {
-
         it('should create post when valid token provided', async (done) => {
             const res = await request(app)
                 .post('/blog')
                 .set('authorization', mockToken)
                 .set('content-type', 'multipart/form-data')
-                .attach('image', path.join(__dirname, 'assets/dummy.txt'))
+                .attach('image', path.join(__dirname, 'assets/test.jpg'))
                 .field('title', testBlog.title)
                 .field('body', testBlog.body);
-                
-
             expect(res).toHaveProperty('status', 201);
             expect(res.body).toHaveProperty('status', 201);
             expect(res.body).toHaveProperty('message', 'Blog Created successfully');
             expect(res.body).toHaveProperty('data');
-            expect(res.body.data).toHaveProperty('title', mockBlog.title);
-
+            expect(res.body.data).toHaveProperty('title', testBlog.title);
             done()
         });
     });
+
+    describe('PATCH /:blogId', () => {
+        it('should update post when valid token provided', async () => {
+          const blog = await Blog.create({ ...testBlog});
+          await blog.save();
+    
+          const res = await request(app)
+            .patch(`/blog/${blog._id}`)
+            .set('authorization', mockToken)
+            .send({ title: 'new' });
+    
+          expect(res).toHaveProperty('status', 200);
+          expect(res.body).toHaveProperty('status', 200);
+          expect(res.body).toHaveProperty('data');
+          expect(res.body.data).toHaveProperty('title', 'new');
+        });
+      });
 
     describe('GET all', () => {
         it('should read all posts', async (done) => {
@@ -101,5 +114,19 @@ describe('blog route', () => {
             done();
         });
     });
-
+    describe('DELETE /:blogId', () => {
+        it('should delete post when valid token provided', async () => {
+          const toDelete = await Blog.create({ ...testBlog, author: signupUser._id });
+          await toDelete.save();
+    
+          const res = await request(app)
+            .delete(`/blog/${toDelete._id}`)
+            .set('authorization', mockToken);
+          expect(res).toHaveProperty('status', 200);
+          expect(res.body).toHaveProperty('status', 200);
+          expect(res.body).toHaveProperty('message', 'Blog deletd successfully');
+          expect(res.body).toHaveProperty('data');
+          expect(res.body.data).toHaveProperty('title', toDelete.title);
+        });
+      });
 });

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import {signToekn} from '../helpers/auth';
+import {signToken} from '../helpers/auth';
 import Query from '../models/Query';
 import app from '../app';
 
@@ -10,7 +10,12 @@ describe('query', () => {
     afterEach(async () => {
         await Query.deleteMany();
     });
-
+    const mockToken = signToken({
+        _id: '0',
+        name: 'test',
+        role: 'Admin',
+        email: 'test@gmail.com',
+      });
     const testQuery = {
         name: 'user',
         email:'user@gmail.com',
@@ -30,5 +35,23 @@ describe('query', () => {
             expect(res.body.data).toHaveProperty('email', testQuery.email);
             done()
         })
-    })
+    });
+
+
+    describe('GET /', () => {
+        it('should return all queries when a valid token is provided', async () => {
+          await Query.insertMany([
+            testQuery,
+            { ...testQuery, email: 'test1@gmail.com', name: 'test1' },
+            { ...testQuery, email: 'test2@gmail.com', name: 'test2' },
+          ]);
+          const res = await request(app)
+            .get('/query/')
+            .set('authorization', `Bearer ${mockToken}`);
+          expect(res.status).toEqual(200);
+          expect(res.body).toHaveProperty('status', 200);
+          expect(res.body.data).toHaveProperty('count');
+          expect(res.body.data).toHaveProperty('queries');
+        });
+      });
 })

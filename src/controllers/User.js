@@ -8,7 +8,13 @@ import Response from '../utils';
 export const signup = asyncHandler(async (req, res) => {
 
   const { image, imageId } = req;
-  const data = { ...req.body, image, imageId };
+  const { name, email, password } = req.body;
+
+    const userEmail = await UserModel.findOne({email});
+
+    if (userEmail) return res.status(400).json({error: 'Email in use'});
+
+  const data = {  name, email, password, image, imageId };
 
   const { details: errors } = validate(userValidate.CreateSchema, data);
   if (errors)
@@ -22,6 +28,7 @@ export const signup = asyncHandler(async (req, res) => {
   const hash = await encryptPassword(data.password);
   const user = await UserModel.create({ ...data, password: hash });
   if (!user) return Response.error(res, 500, 'User not created!');
+
 
   return Response.success(res, 201, signToken(user));
   

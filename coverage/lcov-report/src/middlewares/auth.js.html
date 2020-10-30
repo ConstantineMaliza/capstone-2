@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>9/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/10</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -79,39 +79,39 @@
 <a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import passport from 'passport';
 import asyncHandler from './async';
 &nbsp;
-export const auth = asyncHandler(<span class="fstat-no" title="function not covered" >as</span>ync(req, res, next) =&gt; { 
-<span class="cstat-no" title="statement not covered" >    passport.authenticate('jwt', {session:false}, <span class="fstat-no" title="function not covered" >(e</span>rr, user, info) =&gt;{</span>
-<span class="cstat-no" title="statement not covered" >        if(err || !user) <span class="cstat-no" title="statement not covered" >return next(info);</span></span>
-<span class="cstat-no" title="statement not covered" >        req.user = user;</span>
-<span class="cstat-no" title="statement not covered" >        return next();</span>
+export const auth = asyncHandler(async(req, res, next) =&gt; { 
+    passport.authenticate('jwt', {session:false}, (err, user, info) =&gt;{
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(err || !user) <span class="cstat-no" title="statement not covered" >return next(info);</span>
+        req.user = user;
+        return next();
     })(req, res, next);
 });
 &nbsp;
 &nbsp;
-export const isAdmin = asyncHandler(<span class="fstat-no" title="function not covered" >as</span>ync (req, res, next) =&gt; {
-    const { user } = <span class="cstat-no" title="statement not covered" >req;</span>
-<span class="cstat-no" title="statement not covered" >    if (user.role !== 'Admin')</span>
+export const isAdmin = asyncHandler(async (req, res, next) =&gt; {
+    const { user } = req;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (user.role !== 'Admin')
 <span class="cstat-no" title="statement not covered" >      return next({ message: 'Forbidden resources!', statusCode: 403 });</span>
-<span class="cstat-no" title="statement not covered" >    return next();</span>
+    return next();
   });
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
@@ -121,7 +121,7 @@ export const isAdmin = asyncHandler(<span class="fstat-no" title="function not c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 29 2020 11:56:56 GMT+0200 (Eastern European Standard Time)
+                at Fri Oct 30 2020 00:26:34 GMT+0200 (Eastern European Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

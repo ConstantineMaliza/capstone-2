@@ -15,12 +15,12 @@ describe('user', () => {
   });
   
 const SignupUser = {
-      name:"maliza",
-      email:"malizacoco@gmail.com",
+      name:"test",
+      email:"test@gmail.com",
       password:"$2b$12$xSd2pavqxxiSA09bGrENmeLN3Zkl89uJLXhWTS/lZEvXB3UdZ.hja"
   };
   const LoginUser = {
-    email: 'malizacoco@gmail.com',
+    email: 'test@gmail.com',
     password: 'Jannyda1',
   };
 
@@ -83,23 +83,6 @@ describe('POST /login', () => {
   });
 
 });
-//  describe('POST /profile',() => {
-//     it('should return valid token and update the profile', async(done) =>{
-//         const user = await User.create(SignupUser);
-//         await user.save();
-
-//         const updateUser = {
-//             name: 'John',
-//         };
-//         const res = await request(app)
-//         .post(`/user/profile/${user._id}`)
-//         .send(updateUser);
-//         expect(res.status).toEqual(200);
-//         expect(res.body).toHaveProperty('data');
-//         expect(res.body.data).toHaveProperty('name', updateUser.name);
-//         done()
-//     })
-//  });
 
 
 });
